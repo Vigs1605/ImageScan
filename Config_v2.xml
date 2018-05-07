@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<configuration>
+
+<System>
+<connection Name="FileNet"/>
+</System>
+
+<Source>
+<Batch Name= "EastWestBank" Path="C:\Users\Vignesh\Desktop\test.txt"/>
+</Source>
+
+
+<Delimiter>
+<Delimiter name= "Comma" Character=","/>
+</Delimiter>
+
+
+<FileMap>
+	<Field Name="ImagePath" Type="Text"/>
+	<Field Name="Name" Type="Text"/>
+	<Field Name="TaxID" Type="Number"/>
+	<Field Name="DocNum" Type="Number"/>
+	<Field Name="Relatives" Type="Text"/>
+	<Field Name="LoanDate" Type="Date"/>
+</FileMap>
+
+
+<schedules>
+<Monday>
+	<schedule Start="0600" End="0700"/>
+	<schedule Start="1000" End="1200"/>
+</Monday>
+<Tuesday>
+	<schedule Start="0600" End="0700"/>
+	<schedule Start="1000" End="1200"/>
+</Tuesday>
+<Thursday>
+	<schedule Start="0600" End="0700"/>
+	<schedule Start="1000" End="1800"/>
+</Thursday>
+<Friday>
+	<schedule Start="0600" End="0700"/>
+	<schedule Start="1000" End="1900"/>
+</Friday>
+<Sunday>
+	<schedule Start="0600" End="0700"/>
+	<schedule Start="1000" End="2200"/>
+</Sunday>
+</schedules>
+
+<Connections>
+	<connection Name="FileNet">
+		<uri>Value</uri>
+		<domain>Values</domain>
+		<UserName>Values</UserName>
+		<Password>Values</Password>
+		<DocClass>values</DocClass>
+		<Folder>values</Folder>
+	</connection>
+		<connection Name="FileNet2">
+		<uri>Value</uri>
+		<domain>Values</domain>
+		<UserName>Values</UserName>
+		<Password>Values</Password>
+		<DocClass>values</DocClass>
+		<Folder>values</Folder>
+	</connection>
+</Connections>
+
+</configuration>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
