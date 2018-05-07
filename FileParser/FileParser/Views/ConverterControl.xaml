@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="FileParser.Views.ConverterControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ViewModels="clr-namespace:FileParser.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="500"
+             d:DataContext="{d:DesignInstance ViewModels:Presenter}" Width="630.575">
+
+
+
+	<StackPanel Height="336" Margin="0,0,0.5,0">
+
+		<WrapPanel Margin="10">
+
+			<TextBlock Height="32" HorizontalAlignment="Left" Margin="6,10,0,0" VerticalAlignment="Top" Width="293" >      
+			 <Hyperlink Click="Hyperlink_Click">
+				 		<TextBlock x:Name ="TxtBlk" Text="{Binding HyperlinkText, UpdateSourceTrigger=PropertyChanged}"/>
+			  </Hyperlink>
+			</TextBlock>
+
+			<Button Command="{Binding BrowseCommand}" HorizontalAlignment="Left" Margin="6,10,0,0" Width="78" Content="Load Config"/>
+			<Button Content="{Binding ButtonText}" Command="{Binding ButtonClickCommand}" HorizontalAlignment="Left" Margin="6,10,0,0" Width="58"/>
+		</WrapPanel>
+
+
+		<!--  <Label Foreground="Blue" Margin="5,5,5,0">History</Label> -->
+		<DataGrid Height="176" Margin="5,5,10,5" VerticalAlignment="Top" ItemsSource="{Binding BatchFiles, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns = "False">
+
+			<DataGrid.Columns>
+				
+				<DataGridTextColumn Header="Batch Name" Binding="{Binding BatchName}"/>
+				<DataGridTextColumn Header="Source File" Binding="{Binding SourceFile}" Width="Auto"/>
+				<DataGridTextColumn Header="TotalRecords" Binding="{Binding TotalRecords}"/>
+				<DataGridTextColumn Header="Pending" Binding="{Binding Pending}"/>
+				<DataGridTextColumn Header="Success" Binding="{Binding Success}"/>
+				<DataGridTextColumn Header="Failed" Binding="{Binding Failed}"/>
+				<DataGridTemplateColumn Header="Progress" 
+                                        Width="100">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<Grid>
+							<ProgressBar Minimum="0" Maximum="100" Value="{Binding Progress}" Name="pbStatus" />
+							<TextBlock Text="{Binding ElementName=pbStatus, Path=Value, StringFormat={}{0:0}%}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+							</Grid>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+			</DataGrid.Columns>
+		</DataGrid>
+		
+		<Label Content="{Binding Status, UpdateSourceTrigger=PropertyChanged}"/>
+		<Label Content="{Binding ETA, UpdateSourceTrigger=PropertyChanged}"/>
+		<TextBox x:Name="FileNameTextBox" Text="{Binding ConfigFile, UpdateSourceTrigger=PropertyChanged}" Visibility= "Hidden" />
+		
+
+	</StackPanel>
+
+</UserControl>
