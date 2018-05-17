@@ -16,3 +16,8 @@ c:\users\vignesh\source\repos\ImageScan\FileParser\FileParser\obj\Debug\FilePars
 c:\users\vignesh\source\repos\ImageScan\FileParser\FileParser\obj\Debug\FileParser.csproj.CoreCompileInputs.cache
 c:\users\vignesh\source\repos\ImageScan\FileParser\FileParser\obj\Debug\FileParser.exe
 c:\users\vignesh\source\repos\ImageScan\FileParser\FileParser\obj\Debug\FileParser.pdb
+C:\Users\Vignesh\source\repos\ImageScan\FileParser\FileParser\obj\Debug\FileParser_Content.g.cs
+C:\Users\Vignesh\source\repos\ImageScan\FileParser\FileParser\bin\Debug\FileNet.Api.dll
+C:\Users\Vignesh\source\repos\ImageScan\FileParser\FileParser\bin\Debug\Microsoft.Web.Services3.dll
+C:\Users\Vignesh\source\repos\ImageScan\FileParser\FileParser\bin\Debug\P8QueryConnectorLib.dll
+C:\Users\Vignesh\source\repos\ImageScan\FileParser\FileParser\obj\Debug\FileParser.csproj.CopyComplete

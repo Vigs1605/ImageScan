@@ -144,7 +144,7 @@ namespace FileParser.ViewModels
 		{
 			Reset();
 			XmlDocument map = new XmlDocument();
-
+			#region SetXMLReader
 			try
 			{
 				XmlReaderSettings readerSettings = new XmlReaderSettings();
@@ -164,9 +164,10 @@ namespace FileParser.ViewModels
 				Status = "Error Loading Config File. Please select a config file";
 				return;
 			}
+			#endregion
 
 			#region loadinputfile_and_counters
-			
+
 			XmlNodeList bl = map.SelectNodes("configuration/Source/Batch");
 			foreach (XmlNode batchfile in bl)
 			{
@@ -277,13 +278,21 @@ namespace FileParser.ViewModels
 			{
 				if (CanRunNow())
 				{
-					Helper.connect(ConObj);
-					ButtonText = "Pause";
-					ButtonClickCommand = CancelCommand;
-					workerThread.DoWork += new DoWorkEventHandler(WorkerThread_DoWork);
-					workerThread.ProgressChanged += worker_ProgressChanged;
-					workerThread.RunWorkerCompleted += new RunWorkerCompletedEventHandler(workerThread_RunWorkerCompleted);
-					workerThread.RunWorkerAsync();
+					ResponseObject objResp = Helper.connect(ConObj);
+					if (true)
+					{
+						ButtonText = "Pause";
+						ButtonClickCommand = CancelCommand;
+						workerThread.DoWork += new DoWorkEventHandler(WorkerThread_DoWork);
+						workerThread.ProgressChanged += worker_ProgressChanged;
+						workerThread.RunWorkerCompleted += new RunWorkerCompletedEventHandler(workerThread_RunWorkerCompleted);
+						workerThread.RunWorkerAsync();
+					}
+					else
+					{
+						Status = "Login Failed " + objResp.AdditionalInfo;
+						return;
+					}
 				}
 				else
 				{
@@ -394,7 +403,7 @@ namespace FileParser.ViewModels
 							record.Add(fileField);
 
 						} //each record is a line 
-						ResponseObject Res = Helper.Insert(records);
+						ResponseObject Res = Helper.Insert(record);
 						PLs.Add(sourcelist[i].Replace(sourcelist[i], lineno.ToString() + " " + "," + sourcelist[i]) + Res.ResultCode);
 						File.AppendAllLines(batch.SuccessLog, PLs.ToArray());
 						PLs.Clear();

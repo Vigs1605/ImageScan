@@ -8,7 +8,7 @@ namespace FileParser.Models
 {
 	public class ResponseObject
 	{
-		public string ResultCode { get; set; }
+		public bool ResultCode { get; set; }
 
 		public string AdditionalInfo { get; set; }
 
