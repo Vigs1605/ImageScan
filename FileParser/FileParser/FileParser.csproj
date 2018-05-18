@@ -70,7 +70,7 @@
     <Compile Include="Models\DynamicObject.cs" />
     <Compile Include="ViewModels\ActionCommand.cs" />
     <Compile Include="ViewModels\Batch.cs" />
-    <Compile Include="ViewModels\Helper.cs" />
+    <Compile Include="ViewModels\Service.cs" />
     <Compile Include="ViewModels\ObservableObject.cs" />
     <Compile Include="ViewModels\Presenter.cs" />
     <Compile Include="Views\ConverterControl.xaml.cs">

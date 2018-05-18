@@ -62,7 +62,8 @@ namespace FileParser.ViewModels
 		public Timer timer = new Timer() { Interval = 360000, Enabled = true, AutoReset = true };
 
 		public dynamic ConObj = new Models.DynamicObject();
-		
+
+		private Service service;
 
 		public string ConfigFile
 		{
@@ -278,8 +279,8 @@ namespace FileParser.ViewModels
 			{
 				if (CanRunNow())
 				{
-					ResponseObject objResp = Helper.connect(ConObj);
-					if (true)
+					service = new Service(ConObj);
+					if (service.ConnectionStatus == "Connected")
 					{
 						ButtonText = "Pause";
 						ButtonClickCommand = CancelCommand;
@@ -290,7 +291,7 @@ namespace FileParser.ViewModels
 					}
 					else
 					{
-						Status = "Login Failed " + objResp.AdditionalInfo;
+						Status = "Login Failed " + service.ConnectionStatus;
 						return;
 					}
 				}
@@ -403,9 +404,9 @@ namespace FileParser.ViewModels
 							record.Add(fileField);
 
 						} //each record is a line 
-						ResponseObject Res = Helper.Insert(record);
-						PLs.Add(sourcelist[i].Replace(sourcelist[i], lineno.ToString() + " " + "," + sourcelist[i]) + Res.ResultCode);
-						File.AppendAllLines(batch.SuccessLog, PLs.ToArray());
+						ResponseObject Res = service.Insert(record);
+						PLs.Add(sourcelist[i].Replace(sourcelist[i], lineno.ToString() + " " + "," + sourcelist[i]) + Res.AdditionalInfo);
+						File.AppendAllLines(Res.ResultCode ? batch.SuccessLog : batch.ErrorLog, PLs.ToArray());
 						PLs.Clear();
 						// Need to add Logic to write into Error or Success Logs
 						batch.Failed = File.ReadAllLines(batch.ErrorLog).Length;
@@ -468,14 +469,24 @@ namespace FileParser.ViewModels
 		{
 			if (CanRunNow())
 			{
-				timer.Stop();
-				ButtonText = "Pause";
-				ButtonClickCommand = CancelCommand;
-				workerThread.DoWork += new DoWorkEventHandler(WorkerThread_DoWork);
-				workerThread.ProgressChanged += worker_ProgressChanged;
-				workerThread.RunWorkerCompleted += new RunWorkerCompletedEventHandler(workerThread_RunWorkerCompleted);
-				workerThread.RunWorkerAsync();
+				service = new Service(ConObj);
+				if (service.ConnectionStatus == "Connected")
+				{
+					timer.Stop();
+					ButtonText = "Pause";
+					ButtonClickCommand = CancelCommand;
+					workerThread.DoWork += new DoWorkEventHandler(WorkerThread_DoWork);
+					workerThread.ProgressChanged += worker_ProgressChanged;
+					workerThread.RunWorkerCompleted += new RunWorkerCompletedEventHandler(workerThread_RunWorkerCompleted);
+					workerThread.RunWorkerAsync();
+				}
+				else
+				{
+					Status = "Login Failed " + service.ConnectionStatus;
+					return;
+				}
 			}
+			
 		}
 
 		void worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
