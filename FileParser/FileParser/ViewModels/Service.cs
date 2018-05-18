@@ -35,14 +35,6 @@ namespace FileParser.ViewModels
 
 		}
 
-		public ResponseObject connect(DynamicObject dynobj)
-		{
-			ResponseObject obj = new ResponseObject();
-
-			return obj;
-
-		}
-
 		public ResponseObject Insert(List<Field> rec)
 		{
 			var objResp = new ResponseObject();
@@ -91,8 +83,6 @@ namespace FileParser.ViewModels
 
 			return objResp;
 		}
-
-
 
 	}
 
